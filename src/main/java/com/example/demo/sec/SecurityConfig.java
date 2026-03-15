@@ -30,12 +30,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception{
         return http
-                //.formLogin(Customizer.withDefaults())  /// afficher formulaire d'authentification par defaut de spring
-                .formLogin(login -> login
-                        .defaultSuccessUrl("/index", true) // 1. Force l'arrivée sur /index après le login
-                )
-                .authorizeHttpRequests(ar->ar.requestMatchers("/index/**").hasRole("USER"))
-                .authorizeHttpRequests(ar->ar.requestMatchers("/saveProduct/**","/delete/**").hasRole("ADMIN"))
+                .formLogin(Customizer.withDefaults())  /// afficher formulaire d'authentification par defaut de spring
+                .authorizeHttpRequests(ar->ar.requestMatchers("/user/**").hasRole("USER"))
+                .authorizeHttpRequests(ar->ar.requestMatchers("/admin/**").hasRole("ADMIN"))
+                .authorizeHttpRequests(ar->ar.requestMatchers("/public/**").permitAll())
                 .authorizeHttpRequests(ar-> ar.anyRequest().authenticated())
                 .build();
     }
