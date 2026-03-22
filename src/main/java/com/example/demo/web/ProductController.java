@@ -2,11 +2,13 @@ package com.example.demo.web;
 
 import com.example.demo.entities.Product;
 import com.example.demo.repository.ProductRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,5 +54,10 @@ public class ProductController {
     @GetMapping("/login")
     public String login(){
         return "login";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "logout";
     }
 }
